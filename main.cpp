@@ -9,10 +9,9 @@ using namespace std;
 const string txtFileName = "userdata.txt";
 
 string userName;
-
-int userCoins;
-int userDiamonds;
-int userRubies;
+string userCoins;
+string userDiamonds;
+string userRubies;
 
 vector<string> userItems;
 
@@ -129,7 +128,8 @@ void createTxtFile()
 
   ofstream file(txtFileName);
 
-  if ( file.is_open() ) {
+  if (file.is_open())
+  {
     file << userName << endl;
     file << 0 << endl;
     file << 0 << endl;
@@ -139,14 +139,37 @@ void createTxtFile()
   file.close();
 }
 
-void readTxtFile() {}
+void readTxtFile()
+{
+  ifstream file(txtFileName);
+
+  if (!file.is_open())
+  {
+    cerr << "Não foi possível abrir o arquivo: " << txtFileName << endl;
+    return;
+  }
+
+  getline(file, userName);
+  getline(file, userCoins);
+  getline(file, userDiamonds);
+  getline(file, userRubies);
+
+  if (file.fail())
+  {
+    cerr << "Erro ao ler o arquivo: " << txtFileName << endl;
+  }
+
+  file.close();
+}
 
 void runGame() {}
 
-void reWriteTxtFile() {
+void reWriteTxtFile()
+{
   ofstream file(txtFileName);
 
-  if ( file.is_open() ) {
+  if (file.is_open())
+  {
     file << userName << endl;
     file << userCoins << endl;
     file << userDiamonds << endl;
