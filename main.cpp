@@ -1,7 +1,12 @@
 #include <iostream>
 #include <array>
 #include <vector>
+#include <fstream>
+#include <string>
+
 using namespace std;
+
+const string txtFileName = "userdata.txt";
 
 int userCoins;
 int userDiamonds;
@@ -23,12 +28,8 @@ public:
   string tittle;
   Value thisValue;
 
-  Unit(const string &tittle, int coins, int diamonds, int rubies, int id) : tittle(tittle), id(id)
-  {
-    thisValue.coins = coins;
-    thisValue.diamonds = diamonds;
-    thisValue.rubies = rubies;
-  }
+  Unit(const string &tittle, int coins, int diamonds, int rubies, int id)
+      : id(id), tittle(tittle), thisValue{coins, diamonds, rubies} {}
 };
 
 class Earning : public Unit
@@ -45,16 +46,17 @@ public:
   void decreaseValues() {}
 };
 
-bool checkTxtFile();
+bool checkTxtFile(const string &filename);
 void introduceTheGame();
 void createTxtFile();
 void readTxtFile();
+void runGame();
 void reWriteTxtFile();
 
 int main()
 {
 
-  bool isThereFile = checkTxtFile();
+  bool isThereFile = checkTxtFile(txtFileName);
 
   if (!isThereFile)
   {
@@ -105,9 +107,18 @@ int main()
   return 0;
 }
 
-bool checkTxtFile() {}
+bool checkTxtFile(const string &filename)
+{
+  ifstream file(filename);
+  return file.good();
+}
 
-void introduceTheGame() {}
+void introduceTheGame()
+{
+  cout << "Welcome to the Study Game!" << endl;
+  cout << "We're thrilled to have you join our learning adventure. This game is designed to make studying more engaging and rewarding. Here's how it works:" << endl;
+  cout << "In the Study Game, you can earn rewards for various study-related activities. These rewards include coins, diamonds, and rubies. The more you study and engage with learning materials, the more you earn. Here’s a quick look at how you can earn rewards:" << endl;
+}
 
 void createTxtFile() {}
 
