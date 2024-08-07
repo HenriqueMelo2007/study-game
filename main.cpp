@@ -143,4 +143,15 @@ void readTxtFile() {}
 
 void runGame() {}
 
-void reWriteTxtFile() {}
+void reWriteTxtFile() {
+  ofstream file(txtFileName);
+
+  if ( file.is_open() ) {
+    file << userName << endl;
+    file << userCoins << endl;
+    file << userDiamonds << endl;
+    file << userRubies << endl;
+  }
+
+  file.close();
+}
