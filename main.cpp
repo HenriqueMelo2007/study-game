@@ -8,6 +8,8 @@ using namespace std;
 
 const string txtFileName = "userdata.txt";
 
+string userName;
+
 int userCoins;
 int userDiamonds;
 int userRubies;
@@ -46,7 +48,7 @@ public:
   void decreaseValues() {}
 };
 
-bool checkTxtFile(const string &filename);
+bool checkTxtFile(const string &txtFilename);
 void introduceTheGame();
 void createTxtFile();
 void readTxtFile();
@@ -107,9 +109,9 @@ int main()
   return 0;
 }
 
-bool checkTxtFile(const string &filename)
+bool checkTxtFile(const string &txtFilename)
 {
-  ifstream file(filename);
+  ifstream file(txtFilename);
   return file.good();
 }
 
@@ -120,7 +122,22 @@ void introduceTheGame()
   cout << "In the Study Game, you can earn rewards for various study-related activities. These rewards include coins, diamonds, and rubies. The more you study and engage with learning materials, the more you earn. Here’s a quick look at how you can earn rewards:" << endl;
 }
 
-void createTxtFile() {}
+void createTxtFile()
+{
+  cout << "Type your username: ";
+  cin >> userName;
+
+  ofstream file(txtFileName);
+
+  if ( file.is_open() ) {
+    file << userName << endl;
+    file << 0 << endl;
+    file << 0 << endl;
+    file << 0 << endl;
+  }
+
+  file.close();
+}
 
 void readTxtFile() {}
 
