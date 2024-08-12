@@ -6,6 +6,9 @@
 
 using namespace std;
 
+#define EARNING_ARR_SIZE 18
+#define SPENDING_ARR_SIZE 7
+
 const string txtFileName = "userdata.txt";
 
 string userName;
@@ -67,9 +70,6 @@ int main()
 
   readTxtFile();
 
-  const int EARNING_ARR_SIZE = 18;
-  const int SPENDING_ARR_SIZE = 7;
-
   array<Earning, EARNING_ARR_SIZE> earningGroup = {
       Earning("1 - Mental revision", 5, 0, 0, 1),
       Earning("2 - Written revision", 30, 0, 0, 2),
@@ -110,8 +110,8 @@ int main()
 
 bool checkTxtFile(const string &txtFilename)
 {
-  ifstream file(txtFilename);
-  return file.good();
+  ifstream txtFile(txtFilename);
+  return txtFile.good();
 }
 
 void introduceTheGame()
@@ -126,55 +126,55 @@ void createTxtFile()
   cout << "Type your username: ";
   cin >> userName;
 
-  ofstream file(txtFileName);
+  ofstream txtFile(txtFileName);
 
-  if (file.is_open())
+  if (txtFile.is_open())
   {
-    file << userName << endl;
-    file << 0 << endl;
-    file << 0 << endl;
-    file << 0 << endl;
+    txtFile << userName << endl;
+    txtFile << 0 << endl;
+    txtFile << 0 << endl;
+    txtFile << 0 << endl;
   }
 
-  file.close();
+  txtFile.close();
 }
 
 void readTxtFile()
 {
-  ifstream file(txtFileName);
+  ifstream txtFile(txtFileName);
 
-  if (!file.is_open())
+  if (!txtFile.is_open())
   {
     cerr << "Não foi possível abrir o arquivo: " << txtFileName << endl;
     return;
   }
 
-  getline(file, userName);
-  getline(file, userCoins);
-  getline(file, userDiamonds);
-  getline(file, userRubies);
+  getline(txtFile, userName);
+  getline(txtFile, userCoins);
+  getline(txtFile, userDiamonds);
+  getline(txtFile, userRubies);
 
-  if (file.fail())
+  if (txtFile.fail())
   {
     cerr << "Erro ao ler o arquivo: " << txtFileName << endl;
   }
 
-  file.close();
+  txtFile.close();
 }
 
 void runGame() {}
 
 void reWriteTxtFile()
 {
-  ofstream file(txtFileName);
+  ofstream txtFile(txtFileName);
 
-  if (file.is_open())
+  if (txtFile.is_open())
   {
-    file << userName << endl;
-    file << userCoins << endl;
-    file << userDiamonds << endl;
-    file << userRubies << endl;
+    txtFile << userName << endl;
+    txtFile << userCoins << endl;
+    txtFile << userDiamonds << endl;
+    txtFile << userRubies << endl;
   }
 
-  file.close();
+  txtFile.close();
 }
