@@ -18,6 +18,8 @@ string userRubies;
 
 vector<string> userItems;
 
+int leaveGame = 0;
+
 struct Value
 {
   int coins;
@@ -166,7 +168,7 @@ void introduceTheGame()
   cout << endl
        << "Welcome to the Study Game, " << userName << "!!!" << endl;
   cout << "We're thrilled to have you join our learning adventure. This game is designed to make studying more engaging and rewarding. Here's how it works:" << endl;
-  cout << "Enter a number, if the number corresponds to an activity: gain resources. If the number corresponds to a shop item: spend resources and acquire the item." << endl;
+  cout << "Type a number. If the number corresponds to an activity, earn resources. If the number corresponds to a shop item, spend resources to acquire the item." << endl;
   cout << "----- To exit the game: type '99' -----" << endl
        << endl;
 }
@@ -191,6 +193,28 @@ void runGame()
   {
     i.introduceItself();
   }
+
+  int operation;
+
+  do
+  {
+    if (operation == 99)
+    {
+      cout << "I see you soon!" << endl;
+    }
+    else if (operation >= 1 && operation <= 18)
+    {
+      earningGroup[operation].increaseValues();
+    }
+    else if (operation >= 19 && operation <= 25)
+    {
+      spendingGroup[operation].decreaseValues();
+    }
+    else
+    {
+      cout << "Invalid command" << endl;
+    }
+  } while (operation != 99);
 }
 
 void reWriteTxtFile()
