@@ -194,10 +194,11 @@ void runGame()
     i.introduceItself();
   }
 
-  int operation;
+  int operation = 0;
 
   do
   {
+    cin >> operation;
     if (operation == 99)
     {
       cout << "I see you soon!" << endl;
