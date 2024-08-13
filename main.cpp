@@ -48,14 +48,43 @@ class Earning : public Unit
 {
 public:
   Earning(const string &tittle, int coins, int diamonds, int rubies, int id) : Unit(tittle, coins, diamonds, rubies, id) {}
-  void increaseValues() {}
+  void increaseValues()
+  {
+    int numUserCoins = stoi(userCoins) + thisValue.coins;
+    int numUserDiamonds = stoi(userDiamonds) + thisValue.diamonds;
+    int numUserRubies = stoi(userRubies) + thisValue.rubies;
+
+    userCoins = to_string(numUserCoins);
+    userDiamonds = to_string(numUserDiamonds);
+    userRubies = to_string(numUserRubies);
+
+    cout << "Now you have " << userCoins << " coins, " << userDiamonds << " diamonds and " << userRubies << " rubies!" << endl;
+  }
 };
 
 class Spending : public Unit
 {
 public:
   Spending(const string &tittle, int coins, int diamonds, int rubies, int id) : Unit(tittle, coins, diamonds, rubies, id) {}
-  void decreaseValues() {}
+  void decreaseValues()
+  {
+    int numUserCoins = stoi(userCoins) - thisValue.coins;
+    int numUserDiamonds = stoi(userDiamonds) - thisValue.diamonds;
+    int numUserRubies = stoi(userRubies) - thisValue.rubies;
+
+    if (numUserCoins < 0 || numUserDiamonds < 0 || numUserRubies < 0)
+    {
+      cout << "You do not have enough resources." << endl;
+      return;
+    }
+
+    userCoins = to_string(numUserCoins);
+    userDiamonds = to_string(numUserDiamonds);
+    userRubies = to_string(numUserRubies);
+
+    cout << "Congratulations! You earned: " << tittle << endl;
+    cout << "Now you have " << userCoins << " coins, " << userDiamonds << " diamonds and " << userRubies << " rubies!" << endl;
+  }
 };
 
 bool checkTxtFile(const string &txtFilename);
@@ -169,6 +198,8 @@ void introduceTheGame()
        << "Welcome to the Study Game, " << userName << "!!!" << endl;
   cout << "We're thrilled to have you join our learning adventure. This game is designed to make studying more engaging and rewarding. Here's how it works:" << endl;
   cout << "Type a number. If the number corresponds to an activity, earn resources. If the number corresponds to a shop item, spend resources to acquire the item." << endl;
+  cout << "DO NOT FORGET TO SAVE YOUR PROGRESS!" << endl;
+  cout << "----- To show your resources: type '98' -----" << endl;
   cout << "----- To exit the game: type '99' -----" << endl
        << endl;
 }
@@ -205,11 +236,18 @@ void runGame()
     }
     else if (operation >= 1 && operation <= 18)
     {
-      earningGroup[operation].increaseValues();
+      earningGroup[operation - 1].increaseValues();
     }
     else if (operation >= 19 && operation <= 25)
     {
-      spendingGroup[operation].decreaseValues();
+      spendingGroup[operation - 19].decreaseValues();
+    }
+    else if (operation == 98)
+    {
+      cout << endl
+           << "Coins: " << userCoins << endl;
+      cout << "Diamonds: " << userDiamonds << endl;
+      cout << "Rubies: " << userRubies << endl;
     }
     else
     {
